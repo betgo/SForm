@@ -1,0 +1,52 @@
+.schame-form {
+  padding: 10px;
+  background: white;
+
+  // border: 1px solid #d9d9d9;
+  // border-radius: 6px;
+  &-search-btn-wrap {
+    margin-left: auto;
+    margin: 4px 0;
+
+    button {
+      margin-left: 12px;
+    }
+  }
+
+  &-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  :global {
+    .ant-form-item {
+      // display: flex;
+      margin-bottom: 12px;
+    }
+
+    .ant-form-item-control-wrapper {
+      flex: 1;
+    }
+
+    .ant-calendar-picker {
+      width: 100%;
+    }
+
+    .ant-input-number {
+      width: 100%;
+    }
+
+    .ant-form-item-label {
+      min-width: 62px;
+    }
+  }
+}
+
+.search-form {
+  :global {
+    .ant-form-item {
+      display: flex;
+    }
+  }
+}
