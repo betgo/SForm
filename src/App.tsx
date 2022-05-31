@@ -1,8 +1,8 @@
 import { Button, FormInstance } from "antd";
 import * as React from "react";
 import "./App.less";
-import { SFSchema } from "./components/SForm/interface";
-import SForm from "./components/SForm/SForm";
+import { SFSchema } from "./components/interface";
+import { SForm } from "./components";
 
 const App = () => {
   const schema: SFSchema[] = [

@@ -5,10 +5,11 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackBar = require("webpackbar");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const pkg = require("./package.json");
 
 const config = {
   entry: "./src/index.tsx",
-  devtool: "source-map",
   module: {
     rules: [
       {
@@ -58,15 +59,15 @@ const config = {
   },
   resolve: { extensions: ["*", ".js", ".jsx", ".tsx", ".ts"] },
   output: {
-    path: path.join(__dirname, "dist"),
+    path: path.join(__dirname, "lib"),
     publicPath: "/",
     filename: "SForm.js",
     library: "SForm",
-    libraryTarget: "umd",
+    // libraryTarget: "umd",
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, "dist"),
+      directory: path.join(__dirname, "lib"),
       publicPath: "/",
     },
     client: {
@@ -82,8 +83,13 @@ const config = {
     new WebpackBar(),
     new webpack.HotModuleReplacementPlugin(),
     // new webpack.SourceMapDevToolPlugin({}),
-    new CleanWebpackPlugin(),
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin({
+       extractComments: false, //不将注释提取到单独的文件中
+    })],
+},
 };
 
 module.exports = (env, argv) => {
@@ -100,7 +106,9 @@ module.exports = (env, argv) => {
   }
 
   if (argv.mode === "production") {
-    config.entry = "./src/components/SForm";
+    config.entry = "./src/components";
+    // config.devtool = "cheap-source-map";
+    config.plugins.push(new CleanWebpackPlugin());
   }
 
   return config;

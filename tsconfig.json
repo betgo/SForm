@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "./lib",
+    "declaration": true,
+    "declarationDir": "./lib",
     "noImplicitAny": true,
     "module": "es6",
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node"
-  }
+  },
+  "include": ["src/components/", "src/react-app-env.d.ts"]
 }

@@ -18,7 +18,6 @@ import { itemLayout, SFSchema } from "../interface";
 import FormItem from "./FormItem";
 import style from "./index.module.less";
 
-console.log("style", style);
 
 type sf = {
   schema: SFSchema[];

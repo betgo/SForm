@@ -4,8 +4,8 @@
 import Form, { FormItemProps } from "antd/lib/form";
 import { ColProps } from "antd/lib/grid";
 import * as React from "react";
-import SchemaForm from "./Form/SchemaForm";
-import { SFSchema } from "./interface";
+import SchemaForm from "../BaseForm/SchemaForm";
+import { SFSchema } from "../interface";
 
 interface Filter {
   schema: SFSchema[];
@@ -15,6 +15,10 @@ interface Filter {
   onSearch?: (v: any) => void;
   onReset?: (v: any) => void;
 }
+/**
+ * FilterForm 组件
+ *
+ */
 function FilterForm({
   schema,
   formItemLayout,

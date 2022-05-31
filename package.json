@@ -1,10 +1,11 @@
 {
-  "name": "sform",
+  "name": "SForm",
   "version": "1.0.0",
   "description": "react表单组件,基于antd,配置生成",
-  "main": "index.js",
+  "main": "lib/SForm.js",
+  "typings": "/lib/index.d.ts",
   "scripts": {
-    "start": "webpack serve",
+    "start": "webpack serve --mode=development",
     "build": "webpack --mode=production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
