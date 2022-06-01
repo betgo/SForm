@@ -8,7 +8,9 @@
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
   },
   "include": ["src/components/", "src/react-app-env.d.ts"]
 }

@@ -91,6 +91,7 @@ const config = {
     minimizer: [
       new TerserPlugin({
         extractComments: false, //不将注释提取到单独的文件中
+        parallel: 4, // 并发数量
       }),
     ],
   },
