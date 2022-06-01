@@ -8,6 +8,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const pkg = require("./package.json");
 
+const dependencies = Object.keys(pkg.peerDependencies);
+
 const config = {
   entry: "./src/index.tsx",
   module: {
@@ -61,9 +63,9 @@ const config = {
   output: {
     path: path.join(__dirname, "lib"),
     publicPath: "/",
-    filename: "SForm.js",
+    filename: "index.js",
     library: "SForm",
-    // libraryTarget: "umd",
+    libraryTarget: "umd",
   },
   devServer: {
     static: {
@@ -86,10 +88,12 @@ const config = {
   ],
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin({
-       extractComments: false, //不将注释提取到单独的文件中
-    })],
-},
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false, //不将注释提取到单独的文件中
+      }),
+    ],
+  },
 };
 
 module.exports = (env, argv) => {
@@ -109,6 +113,11 @@ module.exports = (env, argv) => {
     config.entry = "./src/components";
     // config.devtool = "cheap-source-map";
     config.plugins.push(new CleanWebpackPlugin());
+    let externals = {};
+    dependencies.forEach((dependency) => {
+      externals[dependency] = dependency;
+    });
+    config.externals = externals;
   }
 
   return config;

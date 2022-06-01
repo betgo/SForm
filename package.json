@@ -1,8 +1,8 @@
 {
-  "name": "SForm",
+  "name": "sform-react",
   "version": "1.0.0",
   "description": "react表单组件,基于antd,配置生成",
-  "main": "lib/SForm.js",
+  "main": "lib/index.js",
   "typings": "/lib/index.d.ts",
   "scripts": {
     "start": "webpack serve --mode=development",
@@ -16,6 +16,10 @@
   ],
   "author": "wxx",
   "license": "ISC",
+  "peerDependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.18.0",
