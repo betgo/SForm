@@ -9,5 +9,9 @@ interface formType {
     layout?: "inline" | "horizontal" | "vertical";
     onValuesChange?: (changedValues: any, allValues: any) => void;
 }
+/**
+ * SForm 组件
+ *
+ */
 declare const _default: React.ForwardRefExoticComponent<formType & React.RefAttributes<FormInstance<any>>>;
 export default _default;

@@ -6,6 +6,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackBar = require("webpackbar");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const pkg = require("./package.json");
 
 const dependencies = Object.keys(pkg.peerDependencies);
@@ -84,6 +86,7 @@ const config = {
   plugins: [
     new WebpackBar(),
     new webpack.HotModuleReplacementPlugin(),
+    // new BundleAnalyzerPlugin(),
     // new webpack.SourceMapDevToolPlugin({}),
   ],
   optimization: {
@@ -114,7 +117,9 @@ module.exports = (env, argv) => {
     config.entry = "./src/components";
     // config.devtool = "cheap-source-map";
     config.plugins.push(new CleanWebpackPlugin());
-    let externals = {};
+    let externals = {
+      moment: "moment",
+    };
     dependencies.forEach((dependency) => {
       externals[dependency] = dependency;
     });

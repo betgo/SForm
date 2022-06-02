@@ -15,11 +15,6 @@ interface formType {
   onValuesChange?: (changedValues: any, allValues: any) => void; // 表单变化回调
 }
 
-/**
- * SForm 组件
- *
- */
-
 const SForm: React.ForwardRefRenderFunction<FormInstance, formType> = (
   { schema, formItemLayout, colLayout, layout = "horizontal", onValuesChange },
   ref
@@ -40,11 +35,8 @@ const SForm: React.ForwardRefRenderFunction<FormInstance, formType> = (
   );
 };
 
+/**
+ * SForm 组件
+ *
+ */
 export default forwardRef(SForm);
-
-// Form.create<formType>({
-//   name: "SForm",
-//   onValuesChange: (props: any, changedValues: any, allValues: any) => {
-//     props.onValuesChange && props.onValuesChange(changedValues, allValues);
-//   },
-// })(SForm);
