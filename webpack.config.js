@@ -89,15 +89,6 @@ const config = {
     // new BundleAnalyzerPlugin(),
     // new webpack.SourceMapDevToolPlugin({}),
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        extractComments: false, //不将注释提取到单独的文件中
-        parallel: 4, // 并发数量
-      }),
-    ],
-  },
 };
 
 module.exports = (env, argv) => {
@@ -117,6 +108,7 @@ module.exports = (env, argv) => {
     config.entry = "./src/components";
     // config.devtool = "cheap-source-map";
     config.plugins.push(new CleanWebpackPlugin());
+    // 外部引入包
     let externals = {
       moment: "moment",
     };
@@ -124,6 +116,15 @@ module.exports = (env, argv) => {
       externals[dependency] = dependency;
     });
     config.externals = externals;
+    config.optimization = {
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          extractComments: false, //不将注释提取到单独的文件中
+          parallel: 4, // 并发数量
+        }),
+      ],
+    };
   }
 
   return config;

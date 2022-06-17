@@ -100,13 +100,6 @@ interface SFSchemaBase {
 }
 interface SFSchemaWithType extends SFSchemaBase {
   type: SFSchemaType;
-  /**
-   * 枚举，静态数据源，例如：`radio`、`checkbox` 等
-   *
-   * - `disabled` 属性表示：禁用状态
-   * - `label` 属性表示：文本
-   * - `value` 属性表示：返回值
-   */
   render?: any;
 }
 

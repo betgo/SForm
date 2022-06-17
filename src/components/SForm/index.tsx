@@ -6,21 +6,30 @@ import SchemaForm from "../BaseForm/SchemaForm";
 import { SFSchema } from "../interface";
 import * as React from "react";
 
-
 interface formType {
   schema: SFSchema[];
   formItemLayout?: FormItemProps;
   colLayout?: ColProps;
   layout?: "inline" | "horizontal" | "vertical";
+  form?: FormInstance;
   onValuesChange?: (changedValues: any, allValues: any) => void; // 表单变化回调
 }
 
 const SForm: React.ForwardRefRenderFunction<FormInstance, formType> = (
-  { schema, formItemLayout, colLayout, layout = "horizontal", onValuesChange },
+  {
+    schema,
+    formItemLayout,
+    colLayout,
+    layout = "horizontal",
+    form,
+    onValuesChange,
+  },
   ref
 ) => {
-  const [form] = Form.useForm();
-  useImperativeHandle(ref, () => form);
+  const [customForm] = Form.useForm();
+  if (!form) {
+    form = customForm;
+  }
 
   return (
     <SchemaForm

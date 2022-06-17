@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 
-import Icon from "@ant-design/icons";
+import { UpOutlined, DownOutlined } from "@ant-design/icons";
 import {
   Button,
   Col,
@@ -17,7 +17,6 @@ import { useState, useMemo, useCallback, useRef } from "react";
 import { itemLayout, SFSchema } from "../interface";
 import FormItem from "./FormItem";
 import style from "./index.module.less";
-
 
 type sf = {
   schema: SFSchema[];
@@ -233,7 +232,7 @@ const SchemaForm: React.FC<sf> = ({
               {schema.length > 5 || (schema.length > 5 && expand) ? (
                 <a style={{ marginLeft: 8, fontSize: 12 }} onClick={handleMore}>
                   {expand ? "收起" : "更多筛选"}
-                  <Icon type={expand ? "up" : "down"} />
+                  {expand ? <UpOutlined /> : <DownOutlined />}
                 </a>
               ) : null}
             </div>
