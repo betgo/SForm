@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/require-default-props */
 
-import Form, { FormItemProps } from "antd/lib/form";
+import Form, { FormInstance, FormItemProps } from "antd/lib/form";
 import { ColProps } from "antd/lib/grid";
 import * as React from "react";
 import SchemaForm from "../BaseForm/SchemaForm";
@@ -12,6 +12,7 @@ interface Filter {
   formItemLayout?: FormItemProps;
   colLayout?: ColProps;
   expand?: boolean;
+  form?: FormInstance;
   onSearch?: (v: any) => void;
   onReset?: (v: any) => void;
 }
@@ -24,10 +25,14 @@ function FilterForm({
   formItemLayout,
   colLayout,
   expand,
+  form,
   onSearch,
   onReset,
 }: Filter) {
-  const [form] = Form.useForm();
+  const [customForm] = Form.useForm();
+  if (!form) {
+    form = customForm;
+  }
   return (
     <SchemaForm
       schema={schema}

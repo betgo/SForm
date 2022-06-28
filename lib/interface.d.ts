@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import { FormItemProps } from "antd/lib/form/FormItem";
+import { NamePath } from "antd/lib/form/interface";
 export declare type SFLayout = "horizontal" | "vertical" | "inline";
 export declare type itemLayout = {
     labelCol: {
@@ -77,19 +78,16 @@ interface SFSchemaBase {
      */
     itemProps?: FormItemProps;
     /**
-     *  表单数据变化时执行，返回值为false时跳过，多用于表单联动
+     * 设置依赖字段,与 onDependenciesChange 配合 如果一个字段设置了 dependencies 属性。那么它所依赖的字段更新时，该字段将自动触发更新与校验
      */
-    onValuesChange?: (values: any) => boolean;
+    dependencies?: NamePath[];
+    /**
+     *  依赖字段变化时执行，返回值为false时不渲染，多用于表单联动
+     */
+    onDependenciesChange?: (values: any) => boolean;
 }
 interface SFSchemaWithType extends SFSchemaBase {
     type: SFSchemaType;
-    /**
-     * 枚举，静态数据源，例如：`radio`、`checkbox` 等
-     *
-     * - `disabled` 属性表示：禁用状态
-     * - `label` 属性表示：文本
-     * - `value` 属性表示：返回值
-     */
     render?: any;
 }
 interface SFSchemaWithCustom extends SFSchemaBase {

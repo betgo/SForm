@@ -163,17 +163,12 @@ const SchemaForm: React.FC<sf> = ({
             getValueFromEvent,
             itemProps: cusitemlayout,
             format,
-            onValuesChange,
+            dependencies,
+            onDependenciesChange,
             available = true,
             render,
           } = item;
-          if (onValuesChange) {
-            const values = getFieldsValue();
 
-            if (!onValuesChange(values)) {
-              return null;
-            }
-          }
           if (!available) {
             return null;
           }
@@ -202,21 +197,48 @@ const SchemaForm: React.FC<sf> = ({
                 display: hidden ? "none" : i < count ? "block" : "none",
               }}
             >
-              <Form.Item
-                name={key}
-                label={title}
-                {...iformItemLayout}
-                rules={rules || []}
-                getValueFromEvent={getValueFromEvent}
-                initialValue={defaultValue}
-              >
-                <FormItem
-                  type={type}
-                  props={itemProps}
-                  name={title}
-                  render={render}
-                />
-              </Form.Item>
+              {dependencies ? (
+                <Form.Item noStyle dependencies={dependencies}>
+                  {({ getFieldsValue }) =>
+                    onDependenciesChange &&
+                    onDependenciesChange(getFieldsValue()) && (
+                      <Form.Item
+                        name={key.split(".")}
+                        label={title}
+                        {...iformItemLayout}
+                        rules={rules || []}
+                        getValueFromEvent={getValueFromEvent}
+                        initialValue={defaultValue}
+                        dependencies={dependencies || []}
+                      >
+                        <FormItem
+                          type={type}
+                          props={itemProps}
+                          name={title}
+                          render={render}
+                        />
+                      </Form.Item>
+                    )
+                  }
+                </Form.Item>
+              ) : (
+                <Form.Item
+                  name={key.split(".")}
+                  label={title}
+                  {...iformItemLayout}
+                  rules={rules || []}
+                  getValueFromEvent={getValueFromEvent}
+                  initialValue={defaultValue}
+                  dependencies={dependencies || []}
+                >
+                  <FormItem
+                    type={type}
+                    props={itemProps}
+                    name={title}
+                    render={render}
+                  />
+                </Form.Item>
+              )}
             </Col>
           );
         })}

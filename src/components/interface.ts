@@ -1,4 +1,5 @@
 import { FormItemProps } from "antd/lib/form/FormItem";
+import { NamePath } from "antd/lib/form/interface";
 import type { ValidatorRule } from "rc-field-form/lib/interface";
 import { Validator } from "react";
 export type SFLayout = "horizontal" | "vertical" | "inline";
@@ -94,9 +95,13 @@ interface SFSchemaBase {
    */
   itemProps?: FormItemProps;
   /**
-   *  表单数据变化时执行，返回值为false时跳过，多用于表单联动
+   * 设置依赖字段,与 onDependenciesChange 配合 如果一个字段设置了 dependencies 属性。那么它所依赖的字段更新时，该字段将自动触发更新与校验
    */
-  onValuesChange?: (values: any) => boolean;
+  dependencies?: NamePath[];
+  /**
+   *  依赖字段变化时执行，返回值为false时不渲染，多用于表单联动
+   */
+  onDependenciesChange?: (values: any) => boolean;
 }
 interface SFSchemaWithType extends SFSchemaBase {
   type: SFSchemaType;
