@@ -34,6 +34,7 @@ export type SFSchemaType =
   | "radio"
   | "radioGroup"
   | "rangePicker"
+  | "rangePickerFormat"
   | "tooltipInput"
   | "treeSelect"
   | "timePicker";
@@ -101,7 +102,7 @@ interface SFSchemaBase {
   /**
    *  依赖字段变化时执行，返回值为false时不渲染，多用于表单联动
    */
-  onDependenciesChange?: (values: any) => boolean;
+  onDependenciesChange?: (values: any, form: any) => boolean;
 }
 interface SFSchemaWithType extends SFSchemaBase {
   type: SFSchemaType;

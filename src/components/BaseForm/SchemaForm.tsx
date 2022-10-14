@@ -199,9 +199,12 @@ const SchemaForm: React.FC<sf> = ({
             >
               {dependencies ? (
                 <Form.Item noStyle dependencies={dependencies}>
-                  {({ getFieldsValue }) =>
+                  {(formTemp) =>
                     onDependenciesChange &&
-                    onDependenciesChange(getFieldsValue()) && (
+                    onDependenciesChange(
+                      formTemp.getFieldsValue(),
+                      formTemp
+                    ) && (
                       <Form.Item
                         name={key.split(".")}
                         label={title}

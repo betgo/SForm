@@ -25,7 +25,7 @@ const { RangePicker } = DatePicker;
 const { Option } = Select;
 const FormItem: React.FC<itemType> = (props) => {
   const { type, props: cusprop, name, render, ...supprops } = props;
-  
+
   const purProps = {
     ...supprops,
     ...cusprop,
@@ -99,6 +99,41 @@ const FormItem: React.FC<itemType> = (props) => {
   }
   if (type === "rangePicker") {
     return <RangePicker format="YYYY-MM-DD" {...purProps} />;
+  }
+  // value已格式化的rangePicker
+  if (type === "rangePickerFormat") {
+    const MyRangePicker: React.FC<any> = ({
+      value,
+      onChange,
+      format = "YYYY-MM-DD",
+      ...rest
+    }) => {
+      const transformedValue = React.useMemo(() => {
+        return value ? [moment(value[0]), moment(value[1])] : undefined;
+      }, [value]);
+
+      const transformedOnChange = (
+        dates: [moment.Moment, moment.Moment],
+        dateStrings: [string, string],
+        info: { range: "start" | "end" }
+      ) => {
+        if (info.range === "end") {
+          onChange(dateStrings);
+        }
+      };
+      return (
+        <RangePicker
+          {...rest}
+          getPopupContainer={(triggerNode: { parentElement: any }) =>
+            triggerNode.parentElement
+          }
+          value={transformedValue}
+          onCalendarChange={transformedOnChange}
+          style={{ width: "100%" }}
+        />
+      );
+    };
+    return <MyRangePicker format="YYYY-MM-DD" {...purProps} />;
   }
   if (type === "timePicker") {
     return (
