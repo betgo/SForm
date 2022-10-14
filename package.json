@@ -1,6 +1,6 @@
 {
   "name": "sform-react",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "react表单组件,基于antd,配置生成",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
