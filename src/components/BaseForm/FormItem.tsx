@@ -11,6 +11,7 @@ import {
 } from "antd";
 import * as moment from "moment";
 import * as React from "react";
+import { useMemo, useState } from "react";
 
 import { SFSchemaType } from "../interface";
 import Style from "./index.module.less";
@@ -108,28 +109,62 @@ const FormItem: React.FC<itemType> = (props) => {
       format = "YYYY-MM-DD",
       ...rest
     }) => {
-      const transformedValue = React.useMemo(() => {
-        return value ? [moment(value[0]), moment(value[1])] : undefined;
+      const [dates, setDates] = useState(null);
+      const [hackValue, setHackValue] = useState(null);
+      const transformedValue = useMemo(() => {
+        if (!value) {
+          return null;
+        }
+        if (!value[0] && !value[1]) {
+          return null;
+        }
+        return [moment(value[0]), moment(value[1])];
       }, [value]);
 
-      const transformedOnChange = (
-        dates: [moment.Moment, moment.Moment],
+      const { disabledDate: disabledDatefn } = rest;
+      const disabledDate = (current: any) => {
+        if (!disabledDatefn) return false;
+        return disabledDatefn(current, dates);
+      };
+      const onCalendarChange = (
+        dates: any,
         dateStrings: [string, string],
         info: { range: "start" | "end" }
       ) => {
-        if (info.range === "end") {
+        setDates(dates);
+      };
+      const onOpenChange = (open: boolean) => {
+        if (!disabledDatefn) return;
+        if (open) {
+          setHackValue([null, null]);
+          setDates([null, null]);
+        } else {
+          setHackValue(null);
+        }
+      };
+      const tarnsformedOnChange = (
+        dates: any,
+        dateStrings: [string, string]
+      ) => {
+        if (dateStrings[0] == "" && dateStrings[1] == "") {
+          onChange(null);
+        } else {
           onChange(dateStrings);
         }
       };
+
       return (
         <RangePicker
           {...rest}
           getPopupContainer={(triggerNode: { parentElement: any }) =>
             triggerNode.parentElement
           }
-          value={transformedValue}
-          onCalendarChange={transformedOnChange}
+          value={hackValue || transformedValue}
+          onCalendarChange={onCalendarChange}
+          disabledDate={disabledDate}
+          onChange={tarnsformedOnChange}
           style={{ width: "100%" }}
+          onOpenChange={onOpenChange}
         />
       );
     };
